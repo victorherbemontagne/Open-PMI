@@ -23,12 +23,33 @@
                 <hr class="divider my-4" />
             </div>
             <div class="col-lg-8 align-self-baseline">
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Trouver mon service de PMI</a>
                 <a class="btn btn-primary btn-xl js-scroll-trigger" href="https://www.nos-services.com/pmi">C'est quoi la PMI ?</a>
+            </div>
+
+            <div class="navbar navbar-expand-sm bg-dark navbar-dark">
+                <input [(ngModel)]="queryUser" class="form-control mr-sm-2" type="text" placeholder="Entrez ici votre numéro de département"> <br>
+                <a class="btn btn-primary btn-xl js-scroll-trigger" (click)="searchPMI()">Trouver mon service de PMI</a>
             </div>
         </div>
     </div>
 </header>
+
+
+
+  <section class="page-section bg-primary" id="about" *ngIf="queryProposed">
+    <div class="text-center align-self-end cards" *ngFor="let contact of resultQuery">
+        <div class="card">
+            <h1>{{contact['Ville']}}</h1>
+            <p class="title">{{contact['Adresse']}}</p>
+            <p>{{contact['"Téléphone PMI']}}</p>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <p><button>Contact</button></p>
+          </div>
+    </div>
+</section>
 
 
 <!-- About-->

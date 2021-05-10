@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { data } from 'src/environments/data';
+
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -8,6 +10,24 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
+// export interface contactCard {
+//   Dpt:string;
+//   Dpt num: string;
+
+//   "Adresse":"25 Avenue du 6 Juin",
+//   "Ville":"Caen",
+//   "Code postal":"14000",
+//   "Téléphone PMI":"02 31 57 14 31",
+//   "Type de source":"SI",
+//   "Source":"https://www.calvados.fr/accueil/annuaire-pratique/carte-des-cpef.html",
+//   "Personne contactée (PC)":"NaN",
+//   "Courriel PC ":"NaN",
+//   "Tel. PC":"NaN",
+//   "Personne répondante (PR)":"NaN",
+//   "Courriel PR":"NaN",
+//   "Tel. PR":"NaN"
+// }
 
 export class HomeComponent implements OnInit {
 
@@ -17,6 +37,10 @@ export class HomeComponent implements OnInit {
   adress = "";
   emailUser = "";
   nameUser = "";
+  queryUser = "";
+  queryProposed = false;
+
+  resultQuery = [];
 
 
 
@@ -69,5 +93,26 @@ export class HomeComponent implements OnInit {
             alert('Erreur de notre côté ... réessayez plus tard s\'il vous plait ')
           }
       );
+    };
+
+    searchPMI(){
+      console.log("Starting a query to find PMI..");
+      console.log("Query ---", this.queryUser);
+      const query =  this.queryUser
+      const number_dept = 0
+      try {
+        const number_dept  = Number(query)
+      } catch (error) {
+        const number_dept = 1
+        console.log("Error what have been input is not good");
+        
+      }
+      const elmt = data[number_dept]
+
+      console.log(elmt);
+      
+
+      this.queryProposed = true
+      this.resultQuery = elmt;
     }
 }
