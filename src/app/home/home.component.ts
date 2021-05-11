@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   queryUser = "";
   queryProposed = false;
 
-  resultQuery = [];
+  resultQuery: { Dpt: string; "Dpt num": string; Adresse: string; Ville: string; "Code postal": string; "Téléphone PMI": string; "Type de source": string; Source: string; "Personne contactée (PC)": string; "Courriel PC ": string; "Tel. PC": string; "Personne répondante (PR)": string; "Courriel PR": string; "Tel. PR": string; }[] | undefined;
 
 
 
