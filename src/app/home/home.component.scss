@@ -28,6 +28,54 @@
 
 .formulaire {
   margin-top: 20px;
+
+  .formContainer{
+    background-color: #55595E;
+    border-radius: 16px;
+    padding: 2em 4em;
+    max-width: 700px;
+
+    input{
+      background-color: #777A7E;
+      border-radius: 4px;
+      border: none;
+      color: white;
+    }
+
+    label{
+      margin-bottom: 0px;
+      span{
+        color: #F45353;
+      }
+    }
+
+    hr{
+      background-color: #777A7E;
+      width: 80%;
+    }
+
+    button{
+      width: auto;
+    }
+  }
+
+}
+
+@media (max-width: 575px){
+
+  .formulaire {
+  
+    .formContainer{
+      border-radius: 0px;
+      padding: 1em 2em;
+  
+      hr{
+        background-color: #777A7E;
+        width: 80%;
+      }
+    }
+  
+  }
 }
 
 .cards {
@@ -4121,6 +4169,8 @@ input[type=button].btn-block {
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
+  width: 50px;
+  text-align: center;
 }
 .navbar-toggler:hover, .navbar-toggler:focus {
   text-decoration: none;

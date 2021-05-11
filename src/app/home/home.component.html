@@ -22,7 +22,7 @@
                 <h1 class="text-uppercase text-white font-weight-bold">Trouver le service de PMI le plus proche de vous</h1>
                 <hr class="divider my-4" />
             </div>
-            <div class="col-lg-8 align-self-baseline">
+            <div class="col-lg-8 align-self-baseline mb-3">
                 <a class="btn btn-primary btn-xl js-scroll-trigger" href="https://www.nos-services.com/pmi">C'est quoi la PMI ?</a>
             </div>
 
@@ -91,32 +91,35 @@
             </div>
         </div>
         <div class="row justify-content-center formulaire" *ngIf="showForm" >
-            <div class="col-lg-8 text-center">
+            <div class="col mx-auto formContainer">
+                <div class="w-100 text-center my-3">
+                    <h2>Ajouter ou modifier<br>un centre PMI</h2>
+                </div>
+
                     <label for="fname">Votre nom</label>
-                    <input [(ngModel)]="nameUser" type="text" id="fname" name="firstname" placeholder="Votre nom..">
+                    <input [(ngModel)]="nameUser" type="text" id="fname" name="firstname" placeholder="exemple: Jean DUPONT">
 
-                    <label for="fname">Votre email (pour que nous puissions vous contacter)</label>
-                    <input [(ngModel)]="emailUser" type="email" id="fname" name="email" placeholder="Votre email">
+                    <label for="fname">Votre email</label>
+                    <input [(ngModel)]="emailUser" type="email" id="fname" name="email" placeholder="exemple: jdupont@mail.fr">
 
-                    <h2>
-                        Le Centre de PMI
-                    </h2>
+                    <hr>
+
+                    <div class="w-100 text-center">
+                        <h2>Le Centre de PMI</h2>
+                    </div>
                     
                     <label for="fname">Département</label> <br>
-                    <span>exemple: 92210</span>
-                    <input [(ngModel)]="deptNumber" type="text" id="postal" name="deptNumber" placeholder="Code postal du centre..">
+                    <input [(ngModel)]="deptNumber" type="text" id="postal" name="deptNumber" placeholder="exemple: 92210">
 
                     <label for="fname">Adresse du centre</label><br>
-                    <span>exemple: 27 rue de la Poste</span>
-                    <input [(ngModel)]="adress" type="text" id="adress" name="adress" placeholder="Adresse du centre..">
+                    <input [(ngModel)]="adress" type="text" id="adress" name="adress" placeholder="exemple: 27 rue de la Poste">
 
-                    <label for="fname">Numéro de téléphone du centre</label><br>
-                    <span>Si vous ne le connaissez vous pouvez laisser ce champs vide</span>
-                    <input [(ngModel)]="telNumber" type="text" id="telNumber" name="telNumber" placeholder="Numéro de téléphone du centre..">
+                    <label for="fname">Numéro de téléphone du centre  &nbsp; <span>(Obligatoire)</span></label><br>
+                    <input [(ngModel)]="telNumber" type="text" id="telNumber" name="telNumber" placeholder="exemple: 00 00 00 00 00" required>
                     
 
-                    <div class="form-group text-center">
-                        <button (click)="submit()" mat-flat-button>Envoyer</button>
+                    <div class="form-group text-center mt-2">
+                        <button class="btn btn-light btn-xl" (click)="submit()" mat-flat-button>Envoyer</button>
                     </div>
             </div>
         </div>
