@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
         console.log("Error what have been input is not good");
         
       }
-      const elmt = data[number_dept]
+      const elmt = data[1]
 
       console.log(elmt);
       
