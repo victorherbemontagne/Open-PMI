@@ -115,6 +115,10 @@ margin-top: 20px;
 
 @media (max-width: 575px){
 
+  .search{
+    width: 100%;
+  }
+
 .formulaire {
 
   .formContainer{
@@ -144,7 +148,8 @@ input{
   border: none;
   color: white;
   height: 43px;
-  min-width: 300px;
+  width: 300px;
+  max-width: calc(100vw - 40px - 0.5em);
 }
 
 // input::placeholder{
@@ -226,6 +231,52 @@ color: black;
 
 button:hover, a:hover {
 opacity: 0.7;
+}
+
+.contributeIcon{
+  img{
+    filter: var(--filter-white);
+    max-width: 40%;
+    width: 150px;
+    height: auto;
+  }
+}
+
+
+.mobileNav{
+  border-top: 1px solid var(--light);
+  ul{
+    padding-top: 1.5em;
+    list-style: none;
+    padding-left: 0;
+  }
+  a{
+    padding-left: 0;
+    font-size: 1rem;
+    text-shadow: none;
+    color: var(--text-dark);
+    font-family: "Comfortaa", "Rubik", "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  }
+}
+
+footer{
+  p{
+    font-size: 1rem;
+  }
+  a{
+    font-size: 1rem;
+    color: var(--info);
+  }
+
+  .bottomFooter{
+    p{
+      font-size: 0.8rem;
+    }
+    a{
+      font-size: 0.8rem;
+    }
+  }
 }
 
 /* END custom css*/
@@ -4086,6 +4137,7 @@ input[type=button].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  text-shadow: 0px 0px 1px rgba(52,58,64,0.75);
 }
 .nav-link:hover, .nav-link:focus {
   text-decoration: none;
@@ -4221,7 +4273,7 @@ input[type=button].btn-block {
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
-  width: 50px;
+  width: auto;
   text-align: center;
 }
 .navbar-toggler:hover, .navbar-toggler:focus {
@@ -10015,59 +10067,59 @@ a.text-primary:hover, a.text-primary:focus {
 }
 
 a.text-secondary:hover, a.text-secondary:focus {
-  color: #494f54 !important;
+  color: var(--secondary-lowlight) !important;
 }
 
 .text-success {
-  color: #28a745 !important;
+  color: var(--success) !important;
 }
 
 a.text-success:hover, a.text-success:focus {
-  color: #19692c !important;
+  color: var(--success-lowlight)  !important;
 }
 
 .text-info {
-  color: #17a2b8 !important;
+  color: var(--info)  !important;
 }
 
 a.text-info:hover, a.text-info:focus {
-  color: #0f6674 !important;
+  color: var(--info-lowlight)  !important;
 }
 
 .text-warning {
-  color: #ffc107 !important;
+  color: var(--warning)  !important;
 }
 
 a.text-warning:hover, a.text-warning:focus {
-  color: #ba8b00 !important;
+  color: var(--warning-lowlight)  !important;
 }
 
 .text-danger {
-  color: #dc3545 !important;
+  color: var(--danger)  !important;
 }
 
 a.text-danger:hover, a.text-danger:focus {
-  color: #a71d2a !important;
+  color: var(--danger-lowlight)  !important;
 }
 
 .text-light {
-  color: #f8f9fa !important;
+  color: var(--light)  !important;
 }
 
 a.text-light:hover, a.text-light:focus {
-  color: #cbd3da !important;
+  color: var(--light-lowlight)  !important;
 }
 
 .text-dark {
-  color: var(--dark) !important;
+  color: var(--dark)  !important;
 }
 
 a.text-dark:hover, a.text-dark:focus {
-  color: #121416 !important;
+  color: var(--dark-lowlight)  !important;
 }
 
 .text-body {
-  color: #212529 !important;
+  color: var(--text-dark) !important;
 }
 
 .text-muted {
@@ -10252,7 +10304,7 @@ hr.light {
 #mainNav .navbar-brand {
   font-family: "Comfortaa", "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
-  color: #212529;
+  color: var(--text-dark);
 }
 #mainNav .navbar-nav .nav-item .nav-link {
   color: var(--secondary);

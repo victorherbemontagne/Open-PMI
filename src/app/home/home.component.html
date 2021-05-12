@@ -3,12 +3,19 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Votre PMI</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <button (click)="showMobileNav = !showMobileNav" class="mr-4 navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto my-2 my-lg-0">
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Carte des PMI</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contribute">Contribuer</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Nous contacter</a></li>
+            </ul>
+        </div>
+        <div class="mobileNav w-100" *ngIf="showMobileNav && bMobile">
+            <ul>
+                <li class="nav-item" ><a class="nav-link js-scroll-trigger" (click)="scroll('about')">Carte des PMI</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" (click)="scroll('contribute')">Contribuer</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" (click)="scroll('contact')">Nous contacter</a></li>
             </ul>
         </div>
     </div>
@@ -29,9 +36,9 @@
             <div class="search navbar navbar-expand-sm navbar-dark flex-column py-2 py-4">
                 <div class="w-100"><h3  class="text-white mb-1">Trouver mon service de PMI</h3></div>
                 <div class="text-center w-100"><p class="text-white">Entrez votre numéro de département</p></div>
-                <div class="d-flex align-items-center">
+                <div class="d-block d-sm-flex align-items-center">
                     <input [(ngModel)]="queryUser" class="my-0 mr-3" type="text" placeholder="exemple: 92">
-                    <a class="btn btn-secondary btn-xl js-scroll-trigger" (click)="searchPMI()">Recherche </a>
+                    <a class="btn btn-secondary btn-xl js-scroll-trigger mt-3 mt-sm-0" (click)="searchPMI()">Recherche </a>
                 </div>
 
                 <!-- <input type="text" placeholder="Pick one" aria-label="Number" [formControl]="myControl" autocomplete="on">
@@ -88,17 +95,23 @@
 
 <!-- Call to action-->
 <section class="page-section bg-dark text-white" id="contribute">
-    <div class="w-100 text-center mb-5"><h1 class="text-white text-uppercase">Contribuer</h1></div>
-    <div class="container text-center">
-        <h2 class="mb-4 text-primary">L'initiative Open PMI est<br>une initiative collaborative</h2>
-        <h4 class="text-white">Si vous souhaitez aider à la construction de <br>cette plateforme rendez-vous sur le répertoire ouvert</h4>
-        <br>
-        <a class="btn btn-light btn-xl" href="https://github.com/victorherbemontagne/Open-PMI">Contribuer à Open PMI</a>
-    </div>
+    <div class="w-100 text-center mb-5"><h1 class="text-white text-uppercase m-0">Contribuer</h1></div>
     <hr class="divider my-5" />
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
+    <div class="row pb-5">
+        <div class="col-10 pr-0 mx-auto mx-md-0 col-md-5 pr-md-5 text-center text-md-right contributeIcon"><img class="mr-0 mr-md-5 mb-4" src="assets/imgs/coding.svg" alt="github"></div>
+        <div class="col-10 mx-auto mx-md-0 col-md-5">
+            <div class="text-center text-md-left">
+                <h2 class="mb-4 text-primary">L'initiative Open PMI est<br>une initiative collaborative</h2>
+                <h4 class="text-white">Si vous souhaitez aider à la construction de cette plateforme rendez-vous sur le répertoire ouvert</h4>
+                <br>
+                <a class="btn btn-light btn-xl" href="https://github.com/victorherbemontagne/Open-PMI">Contribuer à Open PMI</a>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-4 pb-5">
+        <div class="col-10 pr-0 mx-auto mx-md-0 col-md-5 pr-md-5 text-center text-md-right contributeIcon"><img class="mr-0 mr-md-5 mb-4" src="assets/imgs/edit.svg" alt="github"></div>
+        <div class="col-10 mx-auto mx-md-0 col-md-5">
+            <div class="text-center text-md-left">
                 <h2 class="mt-0 text-primary">Vous souhaitez proposer<br>une modification ou un ajout<br>d'un centre de PMI</h2>
                 <!-- <hr class="divider my-4" /> -->
                 <br>
@@ -106,6 +119,17 @@
                 <a class="btn btn-light btn-xl" *ngIf="showForm" (click)="showForm = !showForm">Cacher le formulaire</a>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <!-- <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mt-0 text-primary">Vous souhaitez proposer<br>une modification ou un ajout<br>d'un centre de PMI</h2>
+
+                <br>
+                <a class="btn btn-light btn-xl" *ngIf="!showForm" (click)="showForm = !showForm">Cliquez ici</a>
+                <a class="btn btn-light btn-xl" *ngIf="showForm" (click)="showForm = !showForm">Cacher le formulaire</a>
+            </div>
+        </div> -->
         <div class="row justify-content-center formulaire" *ngIf="showForm" >
             <div class="col mx-auto formContainer">
                 <div class="w-100 text-center my-3">
@@ -149,7 +173,7 @@
             <div class="col-lg-8 text-center">
                 <h1 class="mt-0 text-uppercase">Nous contacter</h1>
                 <hr class="divider my-4" />
-                <p class="mb-5">Vous avez des questions ou souhaitez collaborer ?</p>
+                <p class="mb-2">Vous avez des questions ou souhaitez collaborer ?</p>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -162,24 +186,52 @@
     </div>
 </section>
 <!-- Footer-->
-<footer class="bg-light py-5">
-    <div class="container">
-        <div class="small text-center text-muted">
-            Copyright Victor D'herbemont - Gazouyi SAS <script>
-                document.write(new Date().getFullYear());
-            </script> 
-            <br>
-            Ce site est en licence ouverte et le code est disponible ici: <a href="https://github.com/victorherbemontagne/Open-PMI">accèder au code</a><br>
-            <!-- This script automatically adds the current year to your website footer-->
-            <!-- (credit: https://updateyourfooter.com/)-->
-        </div>*
-        <div class="text-center">
+<footer class="bg-light">
+    <div class="row py-4">
+        <div class="col-12 text-center">
             <a href="https://www.laniss.fr/">
-                <img style="width: 30%" src="https://www.laniss.fr/wp-content/uploads/2021/01/nouveau-logo-aniss.png">
+                <img style="width: 15vw; min-width: 100px; height: auto;" src="https://www.laniss.fr/wp-content/uploads/2021/01/nouveau-logo-aniss.png">
             </a>
+        </div>
+        <div class="col-12 text-center">
             <a href="https://gazouyi.com/#/">
-                <img style="width: 30%" src="https://gazouyi-share-web.s3.eu-west-3.amazonaws.com/logo-transparent.png">
+                <img style="width: 15vw; min-width: 100px; height: auto;" src="https://gazouyi-share-web.s3.eu-west-3.amazonaws.com/logo-transparent.png">
             </a>
+        </div>
+        
+         <!-- I added this if you wanted to add links at a later date. -->
+        <!-- <div class="col-3 offset-1">
+            <div class="row">
+                <div class="col-12 text-left">
+                    <a href="https://www.laniss.fr/">
+                        <img style="width: 15vw" src="https://www.laniss.fr/wp-content/uploads/2021/01/nouveau-logo-aniss.png">
+                    </a>
+                </div>
+                <div class="col-12 text-left">
+                    <a href="https://gazouyi.com/#/">
+                        <img style="width: 15vw" src="https://gazouyi-share-web.s3.eu-west-3.amazonaws.com/logo-transparent.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 offset-2">
+            <h5>Title</h5>
+            <p><a>Link 1</a></p>
+            <p><a>Link 2</a></p>
+            <p><a>Link 3</a></p>
+        </div>
+        <div class="col-3">
+            <h5>Title</h5>
+            <p><a>Link 1</a></p>
+            <p><a>Link 2</a></p>
+        </div> -->
+    </div>
+    <div class="row bottomFooter m-0 py-3" style="background-color: rgba(0,0,0,0.05);">
+        <div class="col-12">
+            <div class="text-center">
+                <p class="mb-1">© Copyright Victor D'herbemont - Gazouyi SAS {{year}}</p>
+                <p class="mb-0">Ce site est en licence ouverte et le code est disponible ici: <a href="https://github.com/victorherbemontagne/Open-PMI">accèder au code</a></p>
+            </div>
         </div>
     </div>
 </footer>
