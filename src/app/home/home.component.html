@@ -23,14 +23,15 @@
                 <hr class="divider my-4" />
             </div>
             <div class="col-lg-8 align-self-baseline mb-3">
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="https://www.nos-services.com/pmi">C'est quoi la PMI ?</a>
+                <a class="btn btn-secondary btn-xl js-scroll-trigger" href="https://www.nos-services.com/pmi">C'est quoi la PMI ?</a>
             </div>
 
             <div class="search navbar navbar-expand-sm navbar-dark flex-column py-2 py-4">
-                <div class="w-100"><h3 style="color:white;">Trouver mon service de PMI</h3></div>
+                <div class="w-100"><h3  class="text-white mb-1">Trouver mon service de PMI</h3></div>
+                <div class="text-center w-100"><p class="text-white">Entrez votre numéro de département</p></div>
                 <div class="d-flex align-items-center">
-                    <input [(ngModel)]="queryUser" class="my-0 mr-3" type="text" placeholder="Entrez ici votre numéro de département">
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" (click)="searchPMI()">Recherche </a>
+                    <input [(ngModel)]="queryUser" class="my-0 mr-3" type="text" placeholder="exemple: 92">
+                    <a class="btn btn-secondary btn-xl js-scroll-trigger" (click)="searchPMI()">Recherche </a>
                 </div>
 
                 <!-- <input type="text" placeholder="Pick one" aria-label="Number" [formControl]="myControl" autocomplete="on">
@@ -42,7 +43,7 @@
     </div>
 </header>
 
-<section class="page-section bg-primary row" id="about" *ngIf="queryProposed">
+<section class="page-section bg-light row m-0" id="about" *ngIf="queryProposed">
     <div class="col-10 col-md-11 mx-auto"><h4><b>{{resultQuery.length}}</b> Results for <i>{{queryUser}}</i></h4></div>
     <div class="col-10 col-md-11 mx-auto">
         <div class="row">
@@ -72,14 +73,10 @@
 <!-- About-->
 <section class="page-section bg-primary" id="about">
     <div class="text-center align-self-end">
-        <h1 class="text-uppercase text-white font-weight-bold">Carte des PMI en France</h1>
-        <p>
-            Pour trouver votre PMI, zoomez sur la carte et cliquez sur les icones affichées
-        </p>
-        <p>
-            Vous aurez alors accès à l'adresse et les coordonnées du centre de PMI selectionné
-        </p>
-        <hr class="divider my-4" />
+        <h1 class="text-uppercase font-weight-bold">Carte des PMI en France</h1>
+        <p class="mb-0">Pour trouver votre PMI, zoomez sur la carte et cliquez sur les icones affichées</p>
+        <p>Vous aurez alors accès à l'adresse et les coordonnées du centre de PMI selectionné</p>
+        <hr class="dividerWhite my-4" />
     </div>
     <div class="container">
         <div class="map-responsive">
@@ -91,18 +88,20 @@
 
 <!-- Call to action-->
 <section class="page-section bg-dark text-white" id="contribute">
+    <div class="w-100 text-center mb-5"><h1 class="text-white text-uppercase">Contribuer</h1></div>
     <div class="container text-center">
-        <h2 class="mb-4">L'initiative Open PMI est une initiative collaborative</h2>
-        <h4>Si vous souhaitez aider à la construction de cette plateforme rendez-vous sur le répertoire ouvert</h4>
+        <h2 class="mb-4 text-primary">L'initiative Open PMI est<br>une initiative collaborative</h2>
+        <h4 class="text-white">Si vous souhaitez aider à la construction de <br>cette plateforme rendez-vous sur le répertoire ouvert</h4>
         <br>
         <a class="btn btn-light btn-xl" href="https://github.com/victorherbemontagne/Open-PMI">Contribuer à Open PMI</a>
     </div>
-    <hr class="divider my-4" />
+    <hr class="divider my-5" />
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <h2 class="mt-0">Vous souhaitez proposer une modification ou un ajout d'un centre de PMI</h2>
-                <hr class="divider my-4" />
+                <h2 class="mt-0 text-primary">Vous souhaitez proposer<br>une modification ou un ajout<br>d'un centre de PMI</h2>
+                <!-- <hr class="divider my-4" /> -->
+                <br>
                 <a class="btn btn-light btn-xl" *ngIf="!showForm" (click)="showForm = !showForm">Cliquez ici</a>
                 <a class="btn btn-light btn-xl" *ngIf="showForm" (click)="showForm = !showForm">Cacher le formulaire</a>
             </div>
@@ -110,7 +109,7 @@
         <div class="row justify-content-center formulaire" *ngIf="showForm" >
             <div class="col mx-auto formContainer">
                 <div class="w-100 text-center my-3">
-                    <h2>Ajouter ou modifier<br>un centre PMI</h2>
+                    <h2 class="text-white">Ajouter ou modifier<br>un centre PMI</h2>
                 </div>
 
                     <label for="fname">Votre nom</label>
@@ -122,7 +121,7 @@
                     <hr>
 
                     <div class="w-100 text-center">
-                        <h2>Le Centre de PMI</h2>
+                        <h2 class="text-primary">Le Centre de PMI</h2>
                     </div>
                     
                     <label for="fname">Département</label> <br>
@@ -148,16 +147,16 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <h2 class="mt-0">Nous contacter</h2>
+                <h1 class="mt-0 text-uppercase">Nous contacter</h1>
                 <hr class="divider my-4" />
-                <p class="text-muted mb-5">Vous avez des questions ou souhaitez collaborer ?</p>
+                <p class="mb-5">Vous avez des questions ou souhaitez collaborer ?</p>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-4 mr-auto text-center" style="margin: auto">
                 <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
                 <!-- Make sure to change the email address in BOTH the anchor text and the link target below!-->
-                <a class="d-block" href="mailto:pmi@gazouyi.com">bonjour@pmi.gazouyi.com</a>
+                <a class="d-block text-secondary" href="mailto:pmi@gazouyi.com">bonjour@pmi.gazouyi.com</a>
             </div>
         </div>
     </div>
