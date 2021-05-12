@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "openPmi"
+  "defaultProject": "openPmi",
+  "cli": {
+    "analytics": false
+  }
 }

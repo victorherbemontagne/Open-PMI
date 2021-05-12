@@ -28,24 +28,131 @@
 
 .formulaire {
   margin-top: 20px;
+
+  .formContainer{
+    background-color: #55595E;
+    border-radius: 16px;
+    padding: 2em 4em;
+    max-width: 700px;
+
+    input{
+      background-color: #777A7E;
+      border-radius: 4px;
+      border: none;
+      color: white;
+    }
+
+    label{
+      margin-bottom: 0px;
+      span{
+        color: #F45353;
+      }
+    }
+
+    hr{
+      background-color: #777A7E;
+      width: 80%;
+    }
+
+    button{
+      width: auto;
+    }
+  }
+
 }
 
-.cards {
-  width: 30%;
+@media (max-width: 575px){
+
+  .formulaire {
+  
+    .formContainer{
+      border-radius: 0px;
+      padding: 1em 2em;
+  
+      hr{
+        background-color: #777A7E;
+        width: 80%;
+      }
+    }
+  
+  }
 }
+
+// .cards {
+//   width: 300px;
+// }
+
+.search{
+  border-radius: 4px;
+  background-color: rgba(52, 58, 64, 0.7);
+
+  input{
+    background-color: #777A7E;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    height: 43px;
+    min-width: 300px;
+  }
+
+  // input::placeholder{
+  //   opacity: 0.8;
+  //   color: hotpink !important;
+  // }
+
+}
+
+.cardContainer{
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
+.filling-empty-space-childs {
+  width:300px; /*the width of the images in this example*/
+  height:0; /*Important! for the divs to collapse should they fall in a new row*/
+}
+
+// .cards{
+//   display: flex;
+//   display: -webkit-flex;
+//   flex-wrap: wrap;
+//   height: 100%;
+//   background-color: royalblue;
+// }
 
 /* DESIGN FOR CONTACT CARD COMPONENT*/
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: 0px;
-  text-align: center;
+
+#about{
+
+
+  .pmiCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 8px;
+    background-color: white;
+  
+    table{
+      border-spacing: 0.5em 0.5em;
+      border-collapse: separate;
+    }
+  }
+  
+  .contactIcon{
+    img{
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  .title {
+    color: grey;
+    font-size: 18px;
+  }
+
+
 }
 
-.title {
-  color: grey;
-  font-size: 18px;
-}
 
 button {
   border: none;
@@ -4121,6 +4228,8 @@ input[type=button].btn-block {
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
+  width: 50px;
+  text-align: center;
 }
 .navbar-toggler:hover, .navbar-toggler:focus {
   text-decoration: none;
