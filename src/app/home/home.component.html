@@ -51,10 +51,10 @@
 </header>
 
 <section class="page-section bg-light row m-0" id="about" *ngIf="queryProposed">
-    <div class="col-10 col-md-11 mx-auto"><h4><b>{{resultQuery.length}}</b> Results for <i>{{queryUser}}</i></h4></div>
+    <div class="col-10 col-md-11 mx-auto"><h4><b>{{resultQuery.length}}</b> Résultats pour <i>{{displayedQuery}}</i></h4></div>
     <div class="col-10 col-md-11 mx-auto">
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 p-3" *ngFor="let contact of resultQuery">
+            <div class="col-xs-12 col-sm-6 col-md-4 p-3" *ngFor="let contact of resultQuery | slice:0:number_to_show">
                 <div class="py-3 px-4 h-100 w-100 d-flex flex-column pmiCard">
                     <h3>{{contact['Ville']}}</h3>
                     <div class="my-auto">
@@ -69,8 +69,12 @@
                             </tr>
                         </table>
                     </div>
-                    <a class="btn btn-secondary my-3">Contact</a>
+                    <a class="btn btn-secondary my-3" (click)="openMap(contact)">Voir sur la carte</a>
                 </div>
+            </div>
+            <br>
+            <div class="col-lg-8 align-self-baseline mb-3">
+                <a class="btn btn-secondary btn-xl js-scroll-trigger" (click)="increaseShow()">Voir plus de résultats</a>
             </div>
         </div>
     </div>
@@ -148,7 +152,7 @@
                         <h2 class="text-primary">Le Centre de PMI</h2>
                     </div>
                     
-                    <label for="fname">Département</label> <br>
+                    <label for="fname">Code Postal</label> <br>
                     <input [(ngModel)]="deptNumber" type="text" id="postal" name="deptNumber" placeholder="exemple: 92210">
 
                     <label for="fname">Adresse du centre</label><br>
