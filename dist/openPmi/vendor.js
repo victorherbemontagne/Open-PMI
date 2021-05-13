@@ -286,6 +286,275 @@ function concatAll() {
 
 /***/ }),
 
+/***/ "0MNC":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/layout.js ***!
+  \*******************************************************************/
+/*! exports provided: BreakpointObserver, Breakpoints, LayoutModule, MediaMatcher */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BreakpointObserver", function() { return BreakpointObserver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Breakpoints", function() { return Breakpoints; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayoutModule", function() { return LayoutModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MediaMatcher", function() { return MediaMatcher; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/coercion */ "8LU1");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/platform */ "nLfN");
+
+
+
+
+
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+class LayoutModule {
+}
+LayoutModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: LayoutModule });
+LayoutModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function LayoutModule_Factory(t) { return new (t || LayoutModule)(); } });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](LayoutModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+        args: [{}]
+    }], null, null); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Global registry for all dynamically-created, injected media queries. */
+const mediaQueriesForWebkitCompatibility = new Set();
+/** Style tag that holds all of the dynamically-created media queries. */
+let mediaQueryStyleNode;
+/** A utility for calling matchMedia queries. */
+class MediaMatcher {
+    constructor(_platform) {
+        this._platform = _platform;
+        this._matchMedia = this._platform.isBrowser && window.matchMedia ?
+            // matchMedia is bound to the window scope intentionally as it is an illegal invocation to
+            // call it from a different scope.
+            window.matchMedia.bind(window) :
+            noopMatchMedia;
+    }
+    /**
+     * Evaluates the given media query and returns the native MediaQueryList from which results
+     * can be retrieved.
+     * Confirms the layout engine will trigger for the selector query provided and returns the
+     * MediaQueryList for the query provided.
+     */
+    matchMedia(query) {
+        if (this._platform.WEBKIT) {
+            createEmptyStyleRule(query);
+        }
+        return this._matchMedia(query);
+    }
+}
+MediaMatcher.ɵfac = function MediaMatcher_Factory(t) { return new (t || MediaMatcher)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_4__["Platform"])); };
+MediaMatcher.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function MediaMatcher_Factory() { return new MediaMatcher(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_4__["Platform"])); }, token: MediaMatcher, providedIn: "root" });
+MediaMatcher.ctorParameters = () => [
+    { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_4__["Platform"] }
+];
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MediaMatcher, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{ providedIn: 'root' }]
+    }], function () { return [{ type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_4__["Platform"] }]; }, null); })();
+/**
+ * For Webkit engines that only trigger the MediaQueryListListener when
+ * there is at least one CSS selector for the respective media query.
+ */
+function createEmptyStyleRule(query) {
+    if (mediaQueriesForWebkitCompatibility.has(query)) {
+        return;
+    }
+    try {
+        if (!mediaQueryStyleNode) {
+            mediaQueryStyleNode = document.createElement('style');
+            mediaQueryStyleNode.setAttribute('type', 'text/css');
+            document.head.appendChild(mediaQueryStyleNode);
+        }
+        if (mediaQueryStyleNode.sheet) {
+            mediaQueryStyleNode.sheet
+                .insertRule(`@media ${query} {.fx-query-test{ }}`, 0);
+            mediaQueriesForWebkitCompatibility.add(query);
+        }
+    }
+    catch (e) {
+        console.error(e);
+    }
+}
+/** No-op matchMedia replacement for non-browser platforms. */
+function noopMatchMedia(query) {
+    // Use `as any` here to avoid adding additional necessary properties for
+    // the noop matcher.
+    return {
+        matches: query === 'all' || query === '',
+        media: query,
+        addListener: () => { },
+        removeListener: () => { }
+    };
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Utility for checking the matching state of @media queries. */
+class BreakpointObserver {
+    constructor(_mediaMatcher, _zone) {
+        this._mediaMatcher = _mediaMatcher;
+        this._zone = _zone;
+        /**  A map of all media queries currently being listened for. */
+        this._queries = new Map();
+        /** A subject for all other observables to takeUntil based on. */
+        this._destroySubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+    }
+    /** Completes the active subject, signalling to all other observables to complete. */
+    ngOnDestroy() {
+        this._destroySubject.next();
+        this._destroySubject.complete();
+    }
+    /**
+     * Whether one or more media queries match the current viewport size.
+     * @param value One or more media queries to check.
+     * @returns Whether any of the media queries match.
+     */
+    isMatched(value) {
+        const queries = splitQueries(Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_1__["coerceArray"])(value));
+        return queries.some(mediaQuery => this._registerQuery(mediaQuery).mql.matches);
+    }
+    /**
+     * Gets an observable of results for the given queries that will emit new results for any changes
+     * in matching of the given queries.
+     * @param value One or more media queries to check.
+     * @returns A stream of matches for the given queries.
+     */
+    observe(value) {
+        const queries = splitQueries(Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_1__["coerceArray"])(value));
+        const observables = queries.map(query => this._registerQuery(query).observable);
+        let stateObservable = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["combineLatest"])(observables);
+        // Emit the first state immediately, and then debounce the subsequent emissions.
+        stateObservable = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["concat"])(stateObservable.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)), stateObservable.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["skip"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["debounceTime"])(0)));
+        return stateObservable.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(breakpointStates => {
+            const response = {
+                matches: false,
+                breakpoints: {},
+            };
+            breakpointStates.forEach(({ matches, query }) => {
+                response.matches = response.matches || matches;
+                response.breakpoints[query] = matches;
+            });
+            return response;
+        }));
+    }
+    /** Registers a specific query to be listened for. */
+    _registerQuery(query) {
+        // Only set up a new MediaQueryList if it is not already being listened for.
+        if (this._queries.has(query)) {
+            return this._queries.get(query);
+        }
+        const mql = this._mediaMatcher.matchMedia(query);
+        // Create callback for match changes and add it is as a listener.
+        const queryObservable = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((observer) => {
+            // Listener callback methods are wrapped to be placed back in ngZone. Callbacks must be placed
+            // back into the zone because matchMedia is only included in Zone.js by loading the
+            // webapis-media-query.js file alongside the zone.js file.  Additionally, some browsers do not
+            // have MediaQueryList inherit from EventTarget, which causes inconsistencies in how Zone.js
+            // patches it.
+            const handler = (e) => this._zone.run(() => observer.next(e));
+            mql.addListener(handler);
+            return () => {
+                mql.removeListener(handler);
+            };
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(mql), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(({ matches }) => ({ query, matches })), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._destroySubject));
+        // Add the MediaQueryList to the set of queries.
+        const output = { observable: queryObservable, mql };
+        this._queries.set(query, output);
+        return output;
+    }
+}
+BreakpointObserver.ɵfac = function BreakpointObserver_Factory(t) { return new (t || BreakpointObserver)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](MediaMatcher), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"])); };
+BreakpointObserver.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function BreakpointObserver_Factory() { return new BreakpointObserver(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(MediaMatcher), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"])); }, token: BreakpointObserver, providedIn: "root" });
+BreakpointObserver.ctorParameters = () => [
+    { type: MediaMatcher },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }
+];
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](BreakpointObserver, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{ providedIn: 'root' }]
+    }], function () { return [{ type: MediaMatcher }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }]; }, null); })();
+/**
+ * Split each query string into separate query strings if two queries are provided as comma
+ * separated.
+ */
+function splitQueries(queries) {
+    return queries.map(query => query.split(','))
+        .reduce((a1, a2) => a1.concat(a2))
+        .map(query => query.trim());
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// PascalCase is being used as Breakpoints is used like an enum.
+// tslint:disable-next-line:variable-name
+const Breakpoints = {
+    XSmall: '(max-width: 599.98px)',
+    Small: '(min-width: 600px) and (max-width: 959.98px)',
+    Medium: '(min-width: 960px) and (max-width: 1279.98px)',
+    Large: '(min-width: 1280px) and (max-width: 1919.98px)',
+    XLarge: '(min-width: 1920px)',
+    Handset: '(max-width: 599.98px) and (orientation: portrait), ' +
+        '(max-width: 959.98px) and (orientation: landscape)',
+    Tablet: '(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait), ' +
+        '(min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)',
+    Web: '(min-width: 840px) and (orientation: portrait), ' +
+        '(min-width: 1280px) and (orientation: landscape)',
+    HandsetPortrait: '(max-width: 599.98px) and (orientation: portrait)',
+    TabletPortrait: '(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait)',
+    WebPortrait: '(min-width: 840px) and (orientation: portrait)',
+    HandsetLandscape: '(max-width: 959.98px) and (orientation: landscape)',
+    TabletLandscape: '(min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)',
+    WebLandscape: '(min-width: 1280px) and (orientation: landscape)',
+};
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+
+//# sourceMappingURL=layout.js.map
+
+/***/ }),
+
 /***/ "0Pi8":
 /*!******************************************************************!*\
   !*** ./node_modules/rxjs/_esm2015/internal/operators/endWith.js ***!
@@ -9128,6 +9397,159 @@ function combineAll(project) {
     return (source) => source.lift(new _observable_combineLatest__WEBPACK_IMPORTED_MODULE_0__["CombineLatestOperator"](project));
 }
 //# sourceMappingURL=combineAll.js.map
+
+/***/ }),
+
+/***/ "8LU1":
+/*!********************************************************!*\
+  !*** ./node_modules/@angular/cdk/fesm2015/coercion.js ***!
+  \********************************************************/
+/*! exports provided: _isNumberValue, coerceArray, coerceBooleanProperty, coerceCssPixelValue, coerceElement, coerceNumberProperty, coerceStringArray */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_isNumberValue", function() { return _isNumberValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "coerceArray", function() { return coerceArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "coerceBooleanProperty", function() { return coerceBooleanProperty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "coerceCssPixelValue", function() { return coerceCssPixelValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "coerceElement", function() { return coerceElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "coerceNumberProperty", function() { return coerceNumberProperty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "coerceStringArray", function() { return coerceStringArray; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Coerces a data-bound value (typically a string) to a boolean. */
+function coerceBooleanProperty(value) {
+    return value != null && `${value}` !== 'false';
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+function coerceNumberProperty(value, fallbackValue = 0) {
+    return _isNumberValue(value) ? Number(value) : fallbackValue;
+}
+/**
+ * Whether the provided value is considered a number.
+ * @docs-private
+ */
+function _isNumberValue(value) {
+    // parseFloat(value) handles most of the cases we're interested in (it treats null, empty string,
+    // and other non-number values as NaN, where Number just uses 0) but it considers the string
+    // '123hello' to be a valid number. Therefore we also check if Number(value) is NaN.
+    return !isNaN(parseFloat(value)) && !isNaN(Number(value));
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+function coerceArray(value) {
+    return Array.isArray(value) ? value : [value];
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Coerces a value to a CSS pixel value. */
+function coerceCssPixelValue(value) {
+    if (value == null) {
+        return '';
+    }
+    return typeof value === 'string' ? value : `${value}px`;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Coerces an ElementRef or an Element into an element.
+ * Useful for APIs that can accept either a ref or the native element itself.
+ */
+function coerceElement(elementOrRef) {
+    return elementOrRef instanceof _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] ? elementOrRef.nativeElement : elementOrRef;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Coerces a value to an array of trimmed non-empty strings.
+ * Any input that is not an array, `null` or `undefined` will be turned into a string
+ * via `toString()` and subsequently split with the given separator.
+ * `null` and `undefined` will result in an empty array.
+ * This results in the following outcomes:
+ * - `null` -&gt; `[]`
+ * - `[null]` -&gt; `["null"]`
+ * - `["a", "b ", " "]` -&gt; `["a", "b"]`
+ * - `[1, [2, 3]]` -&gt; `["1", "2,3"]`
+ * - `[{ a: 0 }]` -&gt; `["[object Object]"]`
+ * - `{ a: 0 }` -&gt; `["[object", "Object]"]`
+ *
+ * Useful for defining CSS classes or table columns.
+ * @param value the value to coerce into an array of strings
+ * @param separator split-separator if value isn't an array
+ */
+function coerceStringArray(value, separator = /\s+/) {
+    const result = [];
+    if (value != null) {
+        const sourceValues = Array.isArray(value) ? value : `${value}`.split(separator);
+        for (const sourceValue of sourceValues) {
+            const trimmedString = `${sourceValue}`.trim();
+            if (trimmedString) {
+                result.push(trimmedString);
+            }
+        }
+    }
+    return result;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+//# sourceMappingURL=coercion.js.map
+
 
 /***/ }),
 
@@ -51249,6 +51671,352 @@ function isFunction(x) {
     return typeof x === 'function';
 }
 //# sourceMappingURL=isFunction.js.map
+
+/***/ }),
+
+/***/ "nLfN":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/platform.js ***!
+  \*********************************************************************/
+/*! exports provided: Platform, PlatformModule, _getShadowRoot, _supportsShadowDom, getRtlScrollAxisType, getSupportedInputTypes, normalizePassiveListenerOptions, supportsPassiveEventListeners, supportsScrollBehavior */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Platform", function() { return Platform; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlatformModule", function() { return PlatformModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_getShadowRoot", function() { return _getShadowRoot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_supportsShadowDom", function() { return _supportsShadowDom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRtlScrollAxisType", function() { return getRtlScrollAxisType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSupportedInputTypes", function() { return getSupportedInputTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalizePassiveListenerOptions", function() { return normalizePassiveListenerOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "supportsPassiveEventListeners", function() { return supportsPassiveEventListeners; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "supportsScrollBehavior", function() { return supportsScrollBehavior; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "ofXK");
+
+
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Whether the current platform supports the V8 Break Iterator. The V8 check
+// is necessary to detect all Blink based browsers.
+
+let hasV8BreakIterator;
+// We need a try/catch around the reference to `Intl`, because accessing it in some cases can
+// cause IE to throw. These cases are tied to particular versions of Windows and can happen if
+// the consumer is providing a polyfilled `Map`. See:
+// https://github.com/Microsoft/ChakraCore/issues/3189
+// https://github.com/angular/components/issues/15687
+try {
+    hasV8BreakIterator = (typeof Intl !== 'undefined' && Intl.v8BreakIterator);
+}
+catch (_a) {
+    hasV8BreakIterator = false;
+}
+/**
+ * Service to detect the current platform by comparing the userAgent strings and
+ * checking browser-specific global properties.
+ */
+class Platform {
+    constructor(_platformId) {
+        this._platformId = _platformId;
+        // We want to use the Angular platform check because if the Document is shimmed
+        // without the navigator, the following checks will fail. This is preferred because
+        // sometimes the Document may be shimmed without the user's knowledge or intention
+        /** Whether the Angular application is being rendered in the browser. */
+        this.isBrowser = this._platformId ?
+            Object(_angular_common__WEBPACK_IMPORTED_MODULE_1__["isPlatformBrowser"])(this._platformId) : typeof document === 'object' && !!document;
+        /** Whether the current browser is Microsoft Edge. */
+        this.EDGE = this.isBrowser && /(edge)/i.test(navigator.userAgent);
+        /** Whether the current rendering engine is Microsoft Trident. */
+        this.TRIDENT = this.isBrowser && /(msie|trident)/i.test(navigator.userAgent);
+        // EdgeHTML and Trident mock Blink specific things and need to be excluded from this check.
+        /** Whether the current rendering engine is Blink. */
+        this.BLINK = this.isBrowser && (!!(window.chrome || hasV8BreakIterator) &&
+            typeof CSS !== 'undefined' && !this.EDGE && !this.TRIDENT);
+        // Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
+        // ensure that Webkit runs standalone and is not used as another engine's base.
+        /** Whether the current rendering engine is WebKit. */
+        this.WEBKIT = this.isBrowser &&
+            /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
+        /** Whether the current platform is Apple iOS. */
+        this.IOS = this.isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+            !('MSStream' in window);
+        // It's difficult to detect the plain Gecko engine, because most of the browsers identify
+        // them self as Gecko-like browsers and modify the userAgent's according to that.
+        // Since we only cover one explicit Firefox case, we can simply check for Firefox
+        // instead of having an unstable check for Gecko.
+        /** Whether the current browser is Firefox. */
+        this.FIREFOX = this.isBrowser && /(firefox|minefield)/i.test(navigator.userAgent);
+        /** Whether the current platform is Android. */
+        // Trident on mobile adds the android platform to the userAgent to trick detections.
+        this.ANDROID = this.isBrowser && /android/i.test(navigator.userAgent) && !this.TRIDENT;
+        // Safari browsers will include the Safari keyword in their userAgent. Some browsers may fake
+        // this and just place the Safari keyword in the userAgent. To be more safe about Safari every
+        // Safari browser should also use Webkit as its layout engine.
+        /** Whether the current browser is Safari. */
+        this.SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
+    }
+}
+Platform.ɵfac = function Platform_Factory(t) { return new (t || Platform)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["PLATFORM_ID"])); };
+Platform.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function Platform_Factory() { return new Platform(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_core__WEBPACK_IMPORTED_MODULE_0__["PLATFORM_ID"])); }, token: Platform, providedIn: "root" });
+Platform.ctorParameters = () => [
+    { type: Object, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["PLATFORM_ID"],] }] }
+];
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](Platform, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{ providedIn: 'root' }]
+    }], function () { return [{ type: Object, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"],
+                args: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["PLATFORM_ID"]]
+            }] }]; }, null); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+class PlatformModule {
+}
+PlatformModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: PlatformModule });
+PlatformModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function PlatformModule_Factory(t) { return new (t || PlatformModule)(); } });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PlatformModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+        args: [{}]
+    }], null, null); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Cached result Set of input types support by the current browser. */
+let supportedInputTypes;
+/** Types of `<input>` that *might* be supported. */
+const candidateInputTypes = [
+    // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
+    // first changing it to something else:
+    // The specified value "" does not conform to the required format.
+    // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+    'color',
+    'button',
+    'checkbox',
+    'date',
+    'datetime-local',
+    'email',
+    'file',
+    'hidden',
+    'image',
+    'month',
+    'number',
+    'password',
+    'radio',
+    'range',
+    'reset',
+    'search',
+    'submit',
+    'tel',
+    'text',
+    'time',
+    'url',
+    'week',
+];
+/** @returns The input types supported by this browser. */
+function getSupportedInputTypes() {
+    // Result is cached.
+    if (supportedInputTypes) {
+        return supportedInputTypes;
+    }
+    // We can't check if an input type is not supported until we're on the browser, so say that
+    // everything is supported when not on the browser. We don't use `Platform` here since it's
+    // just a helper function and can't inject it.
+    if (typeof document !== 'object' || !document) {
+        supportedInputTypes = new Set(candidateInputTypes);
+        return supportedInputTypes;
+    }
+    let featureTestInput = document.createElement('input');
+    supportedInputTypes = new Set(candidateInputTypes.filter(value => {
+        featureTestInput.setAttribute('type', value);
+        return featureTestInput.type === value;
+    }));
+    return supportedInputTypes;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Cached result of whether the user's browser supports passive event listeners. */
+let supportsPassiveEvents;
+/**
+ * Checks whether the user's browser supports passive event listeners.
+ * See: https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+ */
+function supportsPassiveEventListeners() {
+    if (supportsPassiveEvents == null && typeof window !== 'undefined') {
+        try {
+            window.addEventListener('test', null, Object.defineProperty({}, 'passive', {
+                get: () => supportsPassiveEvents = true
+            }));
+        }
+        finally {
+            supportsPassiveEvents = supportsPassiveEvents || false;
+        }
+    }
+    return supportsPassiveEvents;
+}
+/**
+ * Normalizes an `AddEventListener` object to something that can be passed
+ * to `addEventListener` on any browser, no matter whether it supports the
+ * `options` parameter.
+ * @param options Object to be normalized.
+ */
+function normalizePassiveListenerOptions(options) {
+    return supportsPassiveEventListeners() ? options : !!options.capture;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Cached result of the way the browser handles the horizontal scroll axis in RTL mode. */
+let rtlScrollAxisType;
+/** Cached result of the check that indicates whether the browser supports scroll behaviors. */
+let scrollBehaviorSupported;
+/** Check whether the browser supports scroll behaviors. */
+function supportsScrollBehavior() {
+    if (scrollBehaviorSupported == null) {
+        // If we're not in the browser, it can't be supported. Also check for `Element`, because
+        // some projects stub out the global `document` during SSR which can throw us off.
+        if (typeof document !== 'object' || !document || typeof Element !== 'function' || !Element) {
+            scrollBehaviorSupported = false;
+            return scrollBehaviorSupported;
+        }
+        // If the element can have a `scrollBehavior` style, we can be sure that it's supported.
+        if ('scrollBehavior' in document.documentElement.style) {
+            scrollBehaviorSupported = true;
+        }
+        else {
+            // At this point we have 3 possibilities: `scrollTo` isn't supported at all, it's
+            // supported but it doesn't handle scroll behavior, or it has been polyfilled.
+            const scrollToFunction = Element.prototype.scrollTo;
+            if (scrollToFunction) {
+                // We can detect if the function has been polyfilled by calling `toString` on it. Native
+                // functions are obfuscated using `[native code]`, whereas if it was overwritten we'd get
+                // the actual function source. Via https://davidwalsh.name/detect-native-function. Consider
+                // polyfilled functions as supporting scroll behavior.
+                scrollBehaviorSupported = !/\{\s*\[native code\]\s*\}/.test(scrollToFunction.toString());
+            }
+            else {
+                scrollBehaviorSupported = false;
+            }
+        }
+    }
+    return scrollBehaviorSupported;
+}
+/**
+ * Checks the type of RTL scroll axis used by this browser. As of time of writing, Chrome is NORMAL,
+ * Firefox & Safari are NEGATED, and IE & Edge are INVERTED.
+ */
+function getRtlScrollAxisType() {
+    // We can't check unless we're on the browser. Just assume 'normal' if we're not.
+    if (typeof document !== 'object' || !document) {
+        return 0 /* NORMAL */;
+    }
+    if (rtlScrollAxisType == null) {
+        // Create a 1px wide scrolling container and a 2px wide content element.
+        const scrollContainer = document.createElement('div');
+        const containerStyle = scrollContainer.style;
+        scrollContainer.dir = 'rtl';
+        containerStyle.width = '1px';
+        containerStyle.overflow = 'auto';
+        containerStyle.visibility = 'hidden';
+        containerStyle.pointerEvents = 'none';
+        containerStyle.position = 'absolute';
+        const content = document.createElement('div');
+        const contentStyle = content.style;
+        contentStyle.width = '2px';
+        contentStyle.height = '1px';
+        scrollContainer.appendChild(content);
+        document.body.appendChild(scrollContainer);
+        rtlScrollAxisType = 0 /* NORMAL */;
+        // The viewport starts scrolled all the way to the right in RTL mode. If we are in a NORMAL
+        // browser this would mean that the scrollLeft should be 1. If it's zero instead we know we're
+        // dealing with one of the other two types of browsers.
+        if (scrollContainer.scrollLeft === 0) {
+            // In a NEGATED browser the scrollLeft is always somewhere in [-maxScrollAmount, 0]. For an
+            // INVERTED browser it is always somewhere in [0, maxScrollAmount]. We can determine which by
+            // setting to the scrollLeft to 1. This is past the max for a NEGATED browser, so it will
+            // return 0 when we read it again.
+            scrollContainer.scrollLeft = 1;
+            rtlScrollAxisType =
+                scrollContainer.scrollLeft === 0 ? 1 /* NEGATED */ : 2 /* INVERTED */;
+        }
+        scrollContainer.parentNode.removeChild(scrollContainer);
+    }
+    return rtlScrollAxisType;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+let shadowDomIsSupported;
+/** Checks whether the user's browser support Shadow DOM. */
+function _supportsShadowDom() {
+    if (shadowDomIsSupported == null) {
+        const head = typeof document !== 'undefined' ? document.head : null;
+        shadowDomIsSupported = !!(head && (head.createShadowRoot || head.attachShadow));
+    }
+    return shadowDomIsSupported;
+}
+/** Gets the shadow root of an element, if supported and the element is inside the Shadow DOM. */
+function _getShadowRoot(element) {
+    if (_supportsShadowDom()) {
+        const rootNode = element.getRootNode ? element.getRootNode() : null;
+        // Note that this should be caught by `_supportsShadowDom`, but some
+        // teams have been able to hit this code path on unsupported browsers.
+        if (typeof ShadowRoot !== 'undefined' && ShadowRoot && rootNode instanceof ShadowRoot) {
+            return rootNode;
+        }
+    }
+    return null;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+
+//# sourceMappingURL=platform.js.map
 
 /***/ }),
 

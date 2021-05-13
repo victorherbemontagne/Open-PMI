@@ -51,7 +51,7 @@
 </header>
 
 <section class="page-section bg-light row m-0" id="about" *ngIf="queryProposed">
-    <div class="col-10 col-md-11 mx-auto"><h4><b>{{resultQuery.length}}</b> Résultats pour <i>{{displayedQuery}}</i></h4></div>
+    <div class="col-10 col-md-11 mx-auto"><h4><b>{{resultQuery?.length}}</b> Résultats pour <i>{{displayedQuery}}</i></h4></div>
     <div class="col-10 col-md-11 mx-auto">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4 p-3" *ngFor="let contact of resultQuery | slice:0:number_to_show">
@@ -184,7 +184,7 @@
             <div class="col-lg-4 mr-auto text-center" style="margin: auto">
                 <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
                 <!-- Make sure to change the email address in BOTH the anchor text and the link target below!-->
-                <a class="d-block text-secondary" href="mailto:pmi@gazouyi.com">bonjour@pmi.gazouyi.com</a>
+                <a class="d-block text-secondary">bonjour @ pmi.gazouyi.com</a>
             </div>
         </div>
     </div>
