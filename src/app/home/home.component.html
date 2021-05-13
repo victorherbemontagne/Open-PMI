@@ -35,10 +35,13 @@
 
             <div class="search navbar navbar-expand-sm navbar-dark flex-column py-2 py-4">
                 <div class="w-100"><h3  class="text-white mb-1">Trouver mon service de PMI</h3></div>
-                <div class="text-center w-100"><p class="text-white">Entrez votre numéro de département</p></div>
+                <div class="text-center w-100"><p class="text-white">Sélectionnez votre numéro de département</p></div>
                 <div class="d-block d-sm-flex align-items-center">
-                    <input [(ngModel)]="queryUser" class="my-0 mr-3" type="text" placeholder="exemple: 92">
-                    <a class="btn btn-secondary btn-xl js-scroll-trigger mt-3 mt-sm-0" (click)="searchPMI()">Recherche </a>
+                    <select [(ngModel)]="queryUser" class="my-0 mr-3">
+                        <option *ngFor="let order of choices; let i = index" [value]="order['number']">{{order['name']}}</option>
+                      </select><br>
+                    <!-- <input [(ngModel)]="queryUser" class="my-0 mr-3" type="text" placeholder="exemple: 92">-->
+                    <a class="btn btn-secondary btn-xl js-scroll-trigger mt-3 mt-sm-0" (click)="searchPMI()">Recherche </a>  
                 </div>
 
                 <!-- <input type="text" placeholder="Pick one" aria-label="Number" [formControl]="myControl" autocomplete="on">
@@ -74,7 +77,7 @@
             </div>
             <br>
             <div class="col-lg-8 align-self-baseline mb-3">
-                <a class="btn btn-secondary btn-xl js-scroll-trigger" (click)="increaseShow()">Voir plus de résultats</a>
+                <a class="btn btn-secondary btn-xl js-scroll-trigger" (click)="increaseShow()" *ngIf="toShowMore()">Voir plus de résultats</a>
             </div>
         </div>
     </div>
@@ -85,13 +88,13 @@
 <section class="page-section bg-primary" id="about">
     <div class="text-center align-self-end">
         <h1 class="text-uppercase font-weight-bold">Carte des PMI en France</h1>
-        <p class="mb-0">Pour trouver votre PMI, zoomez sur la carte et cliquez sur les icones affichées</p>
-        <p>Vous aurez alors accès à l'adresse et les coordonnées du centre de PMI selectionné</p>
+        <p class="mb-0">Pour accèder à la carte complète de toutes les PMI sur le territoire Français, cliquez ci dessous</p>
+        <!-- <p>Vous aurez alors accès à l'adresse et les coordonnées du centre de PMI selectionné</p> -->
         <hr class="dividerWhite my-4" />
     </div>
-    <div class="container">
-        <div class="map-responsive">
-            <iframe src="https://www.google.com/maps/d/embed?mid=1Tk89ON7837zMZGoJsHIQbCOb87AzbKAX&hl=fr"></iframe>
+    <div class="container" style="text-align: center;">
+        <div class="col-lg-8 align-self-baseline mb-3" style="margin: auto;">
+            <a class="btn btn-secondary btn-xl js-scroll-trigger" target="_blank" href = "https://www.google.com/maps/d/viewer?mid=1Tk89ON7837zMZGoJsHIQbCOb87AzbKAX&hl=fr&ll=-3.81666561775622e-14%2C-68.87531489999998&z=1">Voir carte</a>
         </div>
     </div>
 </section>

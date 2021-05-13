@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { data } from 'src/environments/data';
+import {deptsNumber} from 'src/environments/depts-number';
 
 import {HttpClient} from "@angular/common/http";
 import { BreakpointObserver} from '@angular/cdk/layout';
@@ -44,19 +45,25 @@ export class HomeComponent implements OnInit {
   queryUser = "";
   displayedQuery = ''; // Used to display the query to the user
   queryProposed = false;
+
+  choices = deptsNumber.data
+
+  deptPossible = [
+    {'name':"bonjour", 'number':"01"},
+    {'name':"bonjour2", 'number':"02"}
+  ]
   
   year;
   showMobileNav = false;
   public bMobile = false;
 
-  resultQuery: { Dpt: string; "Dpt num": string; Adresse: string; Ville: string; "Code postal": string; "Téléphone PMI": string; "Type de source": string; Source: string; "Personne contactée (PC)": string; "Courriel PC ": string; "Tel. PC": string; "Personne répondante (PR)": string; "Courriel PR": string; "Tel. PR": string; }[] | undefined;
+  resultQuery: { Dpt: string; "Dpt num": string; Adresse: string; Ville: string; "Code postal": string; "Téléphone PMI": string; "Type de source": string; Source: string; "Personne contactée (PC)": string; "Courriel PC ": string; "Tel. PC": string; "Personne répondante (PR)": string; "Courriel PR": string; "Tel. PR": string; }[] = [];
 
-  number_to_show = 10;
+  number_to_show = 9;
   constructor(public formBuilder: FormBuilder, public httpClient: HttpClient, breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe('(max-width: 991px)').subscribe(result => {
 			this.bMobile = result.matches;
 		  });
-
    }
   
 
@@ -120,6 +127,7 @@ export class HomeComponent implements OnInit {
     };
 
     searchPMI(){
+      this.number_to_show = 9;
       if (this.queryUser.length > 2){
         alert("Vous devez rentrer un numéro de département")
       }
@@ -135,6 +143,7 @@ export class HomeComponent implements OnInit {
         this.queryProposed = true
         this.resultQuery = elmt;
         this.displayedQuery = this.queryUser
+        this.scroll("about")
       }
     }
 
@@ -162,6 +171,15 @@ export class HomeComponent implements OnInit {
       console.log("Url found -- " + url);
       
       window.open(url, "_blank");
+    };
+
+    toShowMore(){
+      if(this.resultQuery?.length > this.number_to_show){
+        return true
+      }
+      else {
+        return false
+      }
     }
 
 
