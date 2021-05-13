@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { data } from 'src/environments/data';
 
 import {HttpClient} from "@angular/common/http";
+import { BreakpointObserver} from '@angular/cdk/layout';
 
 // import {Observable} from 'rxjs';
 // import {map, startWith} from 'rxjs/operators';
@@ -42,6 +43,9 @@ export class HomeComponent implements OnInit {
   nameUser = "";
   queryUser = "";
   queryProposed = false;
+  year;
+  showMobileNav = false;
+  public bMobile = false;
 
   resultQuery: { Dpt: string; "Dpt num": string; Adresse: string; Ville: string; "Code postal": string; "Téléphone PMI": string; "Type de source": string; Source: string; "Personne contactée (PC)": string; "Courriel PC ": string; "Tel. PC": string; "Personne répondante (PR)": string; "Courriel PR": string; "Tel. PR": string; }[] | undefined;
 
@@ -49,9 +53,17 @@ export class HomeComponent implements OnInit {
   // filteredOptions!: Observable<string[]>;
   // myControl = new FormControl();
 
-  constructor(public formBuilder: FormBuilder, public httpClient: HttpClient) { }
+  constructor(public formBuilder: FormBuilder, public httpClient: HttpClient, breakpointObserver: BreakpointObserver) {
+    breakpointObserver.observe('(max-width: 991px)').subscribe(result => {
+			this.bMobile = result.matches;
+		  });
+
+   }
+  
 
   ngOnInit(): void {
+    var d = new Date();
+    this.year = d.getFullYear();
 
     // this.filteredOptions = this.myControl.valueChanges
     //   .pipe(
@@ -66,12 +78,14 @@ export class HomeComponent implements OnInit {
   //   return this.options.filter(option => option.toLowerCase().includes(filterValue));
   // }
 
+
+
   
   submit(){
     if(!(this.emailUser == null || this.emailUser == "")){
       this.sendMessage();
     }
-    }
+  }
 
   sendMessage(){
     const route = environment.server_url + '/admin/contact/pmi';
@@ -132,4 +146,12 @@ export class HomeComponent implements OnInit {
       this.queryProposed = true
       this.resultQuery = elmt;
     }
+
+    scroll(el) {
+      console.log("scrolling to: " + el);
+      document.getElementById(el).scrollIntoView({behavior: 'smooth'});
+      this.showMobileNav = false;
+    }
+
+
 }

@@ -1,1 +1,119 @@
 /* You can add global styles to this file, and also import other style files */
+// Font
+
+
+// $font-path: "../assets/fonts";
+// @font-face {
+//   font-family: 'Varela Round';
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Varela_Round/VarelaRound-Regular.ttf') format('truetype');
+// }
+// @font-face{
+//   font-family: 'Quicksand';
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Quicksand/static/Quicksand-Regular.ttf') format('truetype');
+// }
+
+$font-family-base: "Quicksand" , san-serif !default;
+
+// The app direction is used to include
+$app-direction: ltr;
+
+:root{
+
+  font-size: 1rem;
+
+  --pmi-shadow1: 0 4px 14px rgba(0,0,0,.10);
+  --pmi-shadow2: 0 4px 16px rgba(0,0,0,.12);
+
+
+
+  //Gazouyi Colors
+  --color-midnight: #184753;
+  --color-ocean: #127e9b;
+  --color-beau: #c2d8e3; //194, 216, 227
+  --color-bayside: #73cac3; //115, 202, 195
+  --color-blossom: #fcd2c0; //252, 210, 192
+  --color-golden: #fcd485; //252, 212, 133
+  --color-mint: #c5e6da;
+  --color-light-gray: rgb(245,245,245); //f5f5f5
+  --color-rose: #d69292; 
+  --color-background-blue: #f6fbfe;
+  --color-fairy-blue: #e1eaf0;
+  --color-alert: #b05f60 ; //178, 102, 103
+  --color-amber: #e8b449;
+  --color-grapefruit: #f7e9e4;
+
+    --text-dark: #076077;
+    --text-medium: #5f717a; 
+    --text-light: rgb(146, 163, 172); //#92a3ac
+    --text-very-light: rgb(200, 203, 206); //#c8cbce
+
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #f4623a;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: var(--secondary);
+    --gray-dark: #343a40;
+
+
+    --primary: #CDD9DB;
+    --secondary: var(--color-bayside);
+    --success: var(--text-dark);
+    --info: var(--color-ocean);
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f5f5f5;
+    --dark: var(--gray-dark);
+
+    --primary-lowlight: rgb(161, 215, 195);
+    --secondary-lowlight: #59c0b7;
+    --success-lowlight: #5B8C86;
+    --info-lowlight: #5B8C86;
+    --warning-lowlight: #5B8C86;
+    --danger-lowlight: #5B8C86;
+    --dark-lowlight: #5B8C86;
+
+
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: "Merriweather Sans", "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+
+    //calculate filters here: https://codepen.io/sosuke/pen/Pjoqqp
+    --filter-white: brightness(0) invert(1);
+    --filter-ocean: brightness(0) saturate(100%) invert(28%) sepia(95%) saturate(1687%) hue-rotate(170deg) brightness(90%) contrast(86%);
+
+
+    // generate here: https://ionicframework.com/docs/theming/colors
+    @mixin material-shadow($z-depth: 1, $strength: 1, $color: rgb(119,119,119)) {
+        @if $z-depth == 1 {
+            box-shadow: 0 1px 3px rgba(119,119,119, 0.14), 0 1px 2px rgba(119,119,119, 0.24);
+        }
+        @if $z-depth == 2 {
+            box-shadow: 0 3px 6px rgba($color, $strength * 0.16), 0 3px 6px rgba($color, $strength * 0.23);
+        }
+        @if $z-depth == 3 {
+            box-shadow: 0 10px 20px rgba($color, $strength * 0.19), 0 6px 6px rgba($color, $strength * 0.23);
+        }
+        @if $z-depth == 4 {
+            box-shadow: 0 15px 30px rgba($color, $strength * 0.25), 0 10px 10px rgba($color, $strength * 0.22);
+        }
+        @if $z-depth == 5{
+            box-shadow: 0 20px 40px rgba($color, $strength * 0.30), 0 15px 12px rgba($color, $strength * 0.22);
+        }
+    }
+}

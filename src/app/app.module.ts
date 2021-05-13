@@ -7,6 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+
+
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 import {
   FormsModule,
   ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +37,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
