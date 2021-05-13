@@ -13,6 +13,7 @@
         </div>
         <div class="mobileNav w-100" *ngIf="showMobileNav && bMobile">
             <ul>
+                <li class="nav-item" ><a class="nav-link js-scroll-trigger" href="https://www.nos-services.com/pmi">C'est quoi la PMI</a></li>
                 <li class="nav-item" ><a class="nav-link js-scroll-trigger" (click)="scroll('about')">Carte des PMI</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" (click)="scroll('contribute')">Contribuer</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" (click)="scroll('contact')">Nous contacter</a></li>
@@ -29,10 +30,6 @@
                 <h1 class="text-uppercase text-white font-weight-bold">Trouver le service de PMI le plus proche de vous</h1>
                 <hr class="divider my-4" />
             </div>
-            <div class="col-lg-8 align-self-baseline mb-3">
-                <a class="btn btn-secondary btn-xl js-scroll-trigger" href="https://www.nos-services.com/pmi">C'est quoi la PMI ?</a>
-            </div>
-
             <div class="search navbar navbar-expand-sm navbar-dark flex-column py-2 py-4">
                 <div class="w-100"><h3  class="text-white mb-1">Trouver mon service de PMI</h3></div>
                 <div class="text-center w-100"><p class="text-white">Sélectionnez votre numéro de département</p></div>
@@ -49,6 +46,18 @@
                 </div> -->
 
             </div>
+            <div class="col-lg-10 align-self-end">
+                <h3 style="color: white;font-size: 1.3rem;"><em>proposé par:</em></h3>
+                    <a href="https://www.laniss.fr/" target="_blank">
+                        <img style="width: 15vw; min-width: 100px; height: auto;"  src="https://www.laniss.fr/wp-content/uploads/2021/01/nouveau-logo-aniss.png">
+                    </a>
+                    <a href="https://gazouyi.com/#/" target="_blank">
+                        <img style="width: 15vw; min-width: 100px; height: auto;" src="https://gazouyi-share-web.s3.eu-west-3.amazonaws.com/logo-transparent.png">
+                    </a>
+            </div>
+            <!-- <div class="col-lg-8 align-self-baseline mb-3">
+                <a class="btn btn-secondary btn-xl js-scroll-trigger" href="https://www.nos-services.com/pmi">C'est quoi la PMI ?</a>
+            </div> -->
         </div>
     </div>
 </header>
