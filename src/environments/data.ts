@@ -13679,22 +13679,6 @@ export const data = {
        {
           "Dpt":"Indre-et-Loire",
           "Dpt num":"37",
-          "Adresse":"9 rue Armagis",
-          "Ville":"Saint-Germain-en-Laye",
-          "Code postal":"78100 ",
-          "Téléphone PMI":"0 801 801 078",
-          "Type de source":"SI",
-          "Source":"https://demarchesadministratives.fr/pmi/indre-et-loire-37",
-          "Personne contactée (PC)":"NaN",
-          "Courriel PC ":"NaN",
-          "Tel. PC":"NaN",
-          "Personne répondante (PR)":"NaN",
-          "Courriel PR":"NaN",
-          "Tel. PR":"NaN"
-       },
-       {
-          "Dpt":"Indre-et-Loire",
-          "Dpt num":"37",
           "Adresse":"Territoire de vie sociale 24-26, rue Dublineau",
           "Ville":"Tours",
           "Code postal":"37000 ",
@@ -37520,6 +37504,22 @@ export const data = {
           "Courriel PR":"NaN",
           "Tel. PR":"NaN"
        },
+       {
+         "Dpt":"Yvelines",
+         "Dpt num":"78",
+         "Adresse":"9 rue Armagis",
+         "Ville":"Saint-Germain-en-Laye",
+         "Code postal":"78100 ",
+         "Téléphone PMI":"0 801 801 078",
+         "Type de source":"SI",
+         "Source":"https://www.yvelines.fr/categorie-annuaire/centres-de-protection-maternelle-et-infantile/",
+         "Personne contactée (PC)":"NaN",
+         "Courriel PC ":"NaN",
+         "Tel. PC":"NaN",
+         "Personne répondante (PR)":"NaN",
+         "Courriel PR":"NaN",
+         "Tel. PR":"NaN"
+      },
        {
           "Dpt":"Yvelines",
           "Dpt num":"78",
