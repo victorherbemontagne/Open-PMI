@@ -128,23 +128,19 @@ export class HomeComponent implements OnInit {
 
     searchPMI(){
       this.number_to_show = 9;
-      if (this.queryUser.length > 2){
-        alert("Vous devez rentrer un numéro de département")
-      }
-      else{
-        this.resultQuery = [];
-        this.queryProposed = false;
-        const query =  this.queryUser
+      console.log(this.queryUser);
+      this.resultQuery = [];
+      this.queryProposed = false;
+      const query =  this.queryUser
 
-        const number_dept  = Number(query)
-        
-        const elmt = data[number_dept]
+      const number_dept  = Number(query)
+      
+      const elmt = data[number_dept]
 
-        this.queryProposed = true
-        this.resultQuery = elmt;
-        this.displayedQuery = this.queryUser
-        this.scroll("about")
-      }
+      this.queryProposed = true
+      this.resultQuery = elmt;
+      this.displayedQuery = this.queryUser
+      this.scroll("about")
     }
 
     scroll(el: string) {

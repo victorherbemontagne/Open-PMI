@@ -348,20 +348,16 @@ class HomeComponent {
     ;
     searchPMI() {
         this.number_to_show = 9;
-        if (this.queryUser.length > 2) {
-            alert("Vous devez rentrer un numéro de département");
-        }
-        else {
-            this.resultQuery = [];
-            this.queryProposed = false;
-            const query = this.queryUser;
-            const number_dept = Number(query);
-            const elmt = src_environments_data__WEBPACK_IMPORTED_MODULE_2__["data"][number_dept];
-            this.queryProposed = true;
-            this.resultQuery = elmt;
-            this.displayedQuery = this.queryUser;
-            this.scroll("about");
-        }
+        console.log(this.queryUser);
+        this.resultQuery = [];
+        this.queryProposed = false;
+        const query = this.queryUser;
+        const number_dept = Number(query);
+        const elmt = src_environments_data__WEBPACK_IMPORTED_MODULE_2__["data"][number_dept];
+        this.queryProposed = true;
+        this.resultQuery = elmt;
+        this.displayedQuery = this.queryUser;
+        this.scroll("about");
     }
     scroll(el) {
         console.log("scrolling to: " + el);
